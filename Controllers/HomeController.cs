@@ -1,34 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
-
-
-namespace SimpleModelsAndRelations.Controllers
+namespace firstChance_2nd_attempt.Controllers
 {
-  public partial class HomeController : Controller
-  {
-    private readonly ProjectNameOptions _projectNameOptions;
-    
-
-    public HomeController(IOptions<ProjectNameOptions> projectNameOptions )
+    public class HomeController : Controller
     {
-      _projectNameOptions = projectNameOptions.Value;
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Error()
+        {
+            ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            return View();
+        }
     }
-
-    [Route("")]
-    [HttpGet("Home/{*slug}")] 
-    [HttpGet("Home/Index/{*slug}")]
-    [HttpGet("{*slug}")]
-    public IActionResult Index(string slug)
-    {
-      
-      ViewData["Page"] = "Home/Index";
-      ViewData["ProjectName"] = _projectNameOptions.Value;
-      return View();
-    }  
-  }
 }

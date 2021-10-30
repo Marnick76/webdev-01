@@ -1,19 +1,17 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "lib" : [ "dom", "es2015" ],
-        "outDir": "./obj/js",
-        "sourceMap": true,
-        "noImplicitAny": false,
-        "module": "commonjs",
-        "target": "es5",
-        "jsx": "react"
-    }, 
-     "include": [
-      "./Client/**/*.ts",
-      "./Client/**/*.tsx"
-    ],
-   "exclude": [
-      "/**/node_modules/*"
-    ]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es6",
+    "jsx": "react",
+    "sourceMap": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "types": ["webpack-env"]
+  },
+  "exclude": [
+      "bin",
+      "node_modules"
+  ]
 }

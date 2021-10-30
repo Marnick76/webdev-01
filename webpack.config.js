@@ -1,58 +1,43 @@
 const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-module.exports = (env, argv) => {
-  const isDevBuild = !(env && env.prod)
-  const outputDir = (env && env.publishDir) ? env.publishDir : __dirname
-  return ({
-    entry: {
-      site: "./Client/app.ts",
-    },
-    mode: isDevBuild ? 'development' : 'production',
-    output: {
-      filename: isDevBuild ? "[name].js" : "[name].min.js",
-      path: __dirname + "/wwwroot/js",
-      publicPath: "js/",
-      libraryTarget: 'var',
-      library: 'app'
-      },
+const bundleOutputDir = './wwwroot/dist';
 
-    // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
-
-    resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".json"]
-    },
-
-    module: {
-      rules: [
-        // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-        { test: /\.tsx?$/, loader: ["babel-loader", "awesome-typescript-loader"] },
-
-        // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-        { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-
-        { test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)(\?|$)/, use: "url-loader?limit=100000" },
-      ]
-    },
-
-    plugins: [
-      new ExtractTextPlugin({
-        filename: 'js/app.css'
-      }),
-      new CleanWebpackPlugin(path.join(outputDir, 'wwwroot', 'js')),
-      new CheckerPlugin()
-    ],
-
-    // When importing a module whose path matches one of the following, just
-    // assume a corresponding global variable exists and use that instead.
-    // This is important because it allows us to avoid bundling all of our
-    // dependencies, which allows browsers to cache those libraries between builds.
-    externals: {
-    }
-  })
+module.exports = (env) => {
+    const isDevBuild = !(env && env.prod);
+    return [{
+        stats: { modules: false },
+        entry: { 'main': './ClientApp/boot.tsx' },
+        resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+        output: {
+            path: path.join(__dirname, bundleOutputDir),
+            filename: '[name].js',
+            publicPath: 'dist/'
+        },
+        module: {
+            rules: [
+                { test: /\.tsx?$/, include: /ClientApp/, use: 'awesome-typescript-loader?silent=true' },
+                { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
+                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
+            ]
+        },
+        plugins: [
+            new CheckerPlugin(),
+            new webpack.DllReferencePlugin({
+                context: __dirname,
+                manifest: require('./wwwroot/dist/vendor-manifest.json')
+            })
+        ].concat(isDevBuild ? [
+            // Plugins that apply in development builds only
+            new webpack.SourceMapDevToolPlugin({
+                filename: '[file].map', // Remove this line if you prefer inline source maps
+                moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
+            })
+        ] : [
+            // Plugins that apply in production builds only
+            new webpack.optimize.UglifyJsPlugin(),
+            new ExtractTextPlugin('site.css')
+        ])
+    }];
 };
-
-

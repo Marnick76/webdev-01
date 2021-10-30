@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
-namespace SimpleModelsAndRelations
+namespace firstChance_2nd_attempt
 {
     public class Program
     {
@@ -18,12 +19,7 @@ namespace SimpleModelsAndRelations
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((ctx, config) =>
-                    config.SetBasePath(ctx.HostingEnvironment.ContentRootPath)
-                    .AddCommandLine(args)
-                    .AddEnvironmentVariables(prefix: "ASPNETCORE_"))
                 .UseStartup<Startup>()
-                .UseUrls("http://*:5000")
                 .Build();
     }
 }

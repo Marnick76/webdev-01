@@ -1,46 +1,34 @@
 {
-  "name": "TestApplication_client_application",
-  "version": "0.0.1",
-  "scripts": {
-    "be": "dotnet watch run environment=development",
-    "fe": "webpack -w",
-    "fe-min": "webpack -p",
-    "css": "gulp"
-  },
-  "dependencies": {
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-hot-loader": "^4.12.18",
-    "react-router-dom": "^5.1.2"
-  },
+  "name": "firstChance_2nd_attempt",
+  "private": true,
+  "version": "0.0.0",
   "devDependencies": {
-    "awesome-typescript-loader": "^5.2.0",
-    "babel-core": "^6.26.3",
-    "babel-env": "^2.4.1",
-    "babel-loader": "^7.1.2",
-    "clean-webpack-plugin": "^0.1.19",
-    "css-loader": "^2.0.2",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-clean-css": "^3.9.0",
-    "gulp-merge-media-queries": "^0.2.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "source-map-loader": "^0.2.4",
-    "style-loader": "^0.23.1",
-    "typescript": "^3.6.2",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.0.8",
-    "webpack-dev-middleware": "^3.1.3",
-    "webpack-hot-middleware": "^2.22.2"
-  },
-  "-vs-binding": {
-    "ProjectOpened": [
-      "build",
-      "stylesheets"
-    ]
+    "@types/history": "4.6.0",
+    "@types/react": "15.0.35",
+    "@types/react-dom": "15.5.1",
+    "@types/react-hot-loader": "3.0.3",
+    "@types/react-router": "4.0.12",
+    "@types/react-router-dom": "4.0.5",
+    "@types/webpack-env": "1.13.0",
+    "aspnet-webpack": "^2.0.1",
+    "aspnet-webpack-react": "^3.0.0",
+    "awesome-typescript-loader": "3.2.1",
+    "bootstrap": "3.3.7",
+    "css-loader": "0.28.4",
+    "event-source-polyfill": "0.0.9",
+    "extract-text-webpack-plugin": "2.1.2",
+    "file-loader": "0.11.2",
+    "isomorphic-fetch": "2.2.1",
+    "jquery": "3.2.1",
+    "json-loader": "0.5.4",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
+    "react-hot-loader": "3.0.0-beta.7",
+    "react-router-dom": "4.1.1",
+    "style-loader": "0.18.2",
+    "typescript": "2.4.1",
+    "url-loader": "0.5.9",
+    "webpack": "2.5.1",
+    "webpack-hot-middleware": "2.18.2"
   }
 }

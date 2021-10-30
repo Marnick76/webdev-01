@@ -1,2 +1,0 @@
-web: sh -c "ASPNETCORE_ENVIRONMENT=Development dotnet run"
-# client: sh -c "cd Client && gulp"
